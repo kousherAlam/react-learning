@@ -1,5 +1,6 @@
-# This repository is for stater
+# Learn and test different react concepts
 
-To test any idea or framework in react we need to start first, so this application will allow us to to that.
-
-
+- context api 
+- Error boundary
+- Forwarding Refs
+- Higher-Order Components
