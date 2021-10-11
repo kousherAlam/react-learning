@@ -8,9 +8,8 @@ import { FormControlLabel, FormGroup } from '@mui/material';
 
 export const Product = () => {
     const context = useContext(AppThemeContext);
-    const [theme, setTheme] = useState<AppTheme>(context);
     const lightCardClass = `product hover:bg-gray-100 hover:shadow-lg bg-white shadow-md p-3 rounded-xl border border-gray-100`;
-    const darkCardClass = `product text-white hover:bg-gray-700 hover:shadow-lg dark:bg-gray-500 shadow-md p-3 rounded-xl border border-gray-100`;
+    const darkCardClass = `product text-white hover:bg-gray-600 hover:shadow-lg bg-gray-700 shadow-md p-3 rounded-xl border border-gray-100`;
     const [cardClass, setCardClass] = useState<string>(lightCardClass);
 
     useEffect(() => {
@@ -19,16 +18,16 @@ export const Product = () => {
         } else {
             setCardClass(darkCardClass);
         }
-        setTheme(theme);
     }, [context]);
 
 
 
     const onThemeChanged = (_: any, isLight: boolean) => {
-        if (isLight) {
-            setTheme({ ...theme, theme: 'light' });
+        console.log('top one caleld.', isLight);
+        if(isLight){
+            context.theme = 'light';
         } else {
-            setTheme({ ...theme, theme: 'dark' });
+            context.theme = 'dark';
         }
     }
 
@@ -39,14 +38,12 @@ export const Product = () => {
                 <img src={bookImage} className="p-3 border border-gray-200" alt="Book" />
             </div>
             <div className="name-price p-1 w-7/12">
-                <h3 className="text-xl">Product Name</h3>
+                <h3 className="text-xl">Product Name {context.theme}</h3>
                 <p>{context.theme} | {context.fontSize}</p>
-                <div className="text-white text-right">
-                    <AppThemeContext.Provider value={theme}>
-                        <FormGroup>
-                            <FormControlLabel onChange={onThemeChanged} control={<Switch checked={theme.theme === 'light'} />} label={theme.theme} />
-                        </FormGroup>
-                    </AppThemeContext.Provider>
+                <div className={`${context.theme === 'light' ? 'text-black' : 'text-white' } text-right`}>
+                    <FormGroup>
+                        <FormControlLabel onChange={onThemeChanged} control={<Switch checked={context.theme === 'light'} />} label={context.theme} />
+                    </FormGroup>
                 </div>
                 <p>
                     <span className="text-green-600 font-bold mr-2">10$</span>
