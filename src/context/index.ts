@@ -1,18 +1,18 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 
 export interface AppTheme {
     fontSize: number;
     theme: 'dark' | 'light';
-
+    setTheme ?: (theme: 'light'|'dark', fontSize: number) => void;
 }
 
-export const defaultThemeValue: AppTheme = {
+
+
+export const AppThemeContext = createContext<AppTheme>({
     fontSize: 1,
     theme: 'light',
-}
-
-export const AppThemeContext = createContext<AppTheme>(defaultThemeValue);
+});
 
 
 export interface AuthData {

@@ -1,30 +1,32 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState, useContext } from 'react';
 import { Cart } from './Cart';
 import { Footer } from './Footer';
 import { ProductList } from './ProductList';
 import { Search } from './Search';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormGroup } from '@mui/material';
-import { AppTheme, AppThemeContext, defaultThemeValue } from './context';
+import { AppTheme, AppThemeContext } from './context';
+import { AppThemeContextProvider } from './context/AppThemeProvider';
 
 function App() {
   const productListCSS: CSSProperties = {
     minHeight: '79vh',
   }
 
-  const [theme, setTheme] = useState<AppTheme>(defaultThemeValue);
+  const theme = useContext(AppThemeContext);
+  const [color, setColor] = useState<string>(theme.theme);
 
   const onThemeChanged = (_: any, isLight: boolean) => {
-    if (isLight) {
-      setTheme({ ...theme, theme: 'light' });
-    } else {
-      setTheme({ ...theme, theme: 'dark' });
+    
+    console.log('called from App.tsx.', isLight);
+    if (theme.setTheme) {
+      setColor(isLight ? 'light' : 'dark');
     }
   }
 
   return (
     <div className="app">
-      <AppThemeContext.Provider value={theme}>
+      <AppThemeContextProvider theme={color}>
         <div className="navbar fixed z-10 top-0 left-0 w-full p-3 bg-indigo-900 flex shadow-lg">
           <div className="text-left w-2/12">
             <h1 className="text-lg text-white font-bold">Test App</h1>
@@ -47,7 +49,7 @@ function App() {
           <ProductList />
         </div>
         <Footer></Footer>
-      </AppThemeContext.Provider>
+      </AppThemeContextProvider>
     </div>
   );
 }
