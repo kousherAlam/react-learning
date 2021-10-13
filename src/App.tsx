@@ -1,30 +1,27 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useContext, useEffect, useState } from 'react';
 import { Cart } from './Cart';
 import { Footer } from './Footer';
 import { ProductList } from './ProductList';
 import { Search } from './Search';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormGroup } from '@mui/material';
-import { AppTheme, AppThemeContext, defaultThemeValue } from './context';
+import { Theme, ThemeContext } from './context';
 
 function App() {
   const productListCSS: CSSProperties = {
     minHeight: '79vh',
   }
 
-  const [theme, setTheme] = useState<AppTheme>(defaultThemeValue);
+  const [theme, setTheme] = useState<Theme>(Theme.Light);
+
 
   const onThemeChanged = (_: any, isLight: boolean) => {
-    if (isLight) {
-      setTheme({ ...theme, theme: 'light' });
-    } else {
-      setTheme({ ...theme, theme: 'dark' });
-    }
+    setTheme(isLight ? Theme.Light : Theme.Dark);
   }
 
   return (
     <div className="app">
-      <AppThemeContext.Provider value={theme}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
         <div className="navbar fixed z-10 top-0 left-0 w-full p-3 bg-indigo-900 flex shadow-lg">
           <div className="text-left w-2/12">
             <h1 className="text-lg text-white font-bold">Test App</h1>
@@ -38,7 +35,7 @@ function App() {
             </div>
             <div className="text-white text-right">
               <FormGroup>
-                <FormControlLabel onChange={onThemeChanged} control={<Switch defaultChecked />} label={theme.theme} />
+                <FormControlLabel onChange={onThemeChanged} control={<Switch checked={theme === Theme.Light} />} label={theme} />
               </FormGroup>
             </div>
           </div>
@@ -47,7 +44,7 @@ function App() {
           <ProductList />
         </div>
         <Footer></Footer>
-      </AppThemeContext.Provider>
+      </ThemeContext.Provider>
     </div>
   );
 }

@@ -1,16 +1,18 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
-
-export interface AppTheme {
-    fontSize: number;
-    theme: 'dark' | 'light';
-
+export enum Theme {
+    Dark = 'Dark',
+    Light = 'Light',
 }
 
-export const defaultThemeValue: AppTheme = {
-    fontSize: 1,
-    theme: 'light',
+export type ThemeContextType = {
+    theme: Theme;
+    setTheme: (Theme: Theme) => void;
 }
 
-export const AppThemeContext = createContext<AppTheme>(defaultThemeValue);
+export const ThemeContext = createContext<ThemeContextType>({ 
+    theme: Theme.Dark, 
+    setTheme: theme => console.warn('no theme provider') 
+});
 
+export const useTheme = () => useContext(ThemeContext);
