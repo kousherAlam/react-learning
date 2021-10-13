@@ -7,18 +7,23 @@ import { ThemeContext, Theme, useTheme } from './context/AppThemeContext';
 
 
 export const Product = () => {
-    const  { theme, setTheme } = useTheme();
+    const  { theme } = useTheme();
     const lightCardClass = `product hover:bg-gray-100 hover:shadow-lg bg-white shadow-md p-3 rounded-xl border border-gray-100`;
     const darkCardClass = `product text-white hover:bg-gray-600 hover:shadow-lg bg-gray-700 shadow-md p-3 rounded-xl border border-gray-100`;
 
+    const [localTheme, setLocalTheme] = useState<Theme>(theme);
 
 
     const onThemeChanged = (_: any, isLight: boolean) => {
-        setTheme(isLight ? Theme.Light : Theme.Dark);
+        setLocalTheme(isLight ? Theme.Light : Theme.Dark);
     }
 
+    useEffect(()=>{
+        setLocalTheme(theme);
+    }, [theme]);
 
-    return <div className={theme === Theme.Light ? lightCardClass : darkCardClass}>
+
+    return <div className={localTheme === Theme.Light ? lightCardClass : darkCardClass}>
         <div className="flex">
             <div className="picture w-5/12">
                 <img src={bookImage} className="p-3 border border-gray-200" alt="Book" />
@@ -27,7 +32,7 @@ export const Product = () => {
                 <h3 className="text-xl">Product Name</h3>
                 <div className="text-white text-right">
                     <FormGroup>
-                        <FormControlLabel onChange={onThemeChanged} control={<Switch checked={theme === Theme.Light} />} label={theme} />
+                        <FormControlLabel onChange={onThemeChanged} control={<Switch checked={localTheme === Theme.Light} />} label={theme} />
                     </FormGroup>
                 </div>
                 <p>
