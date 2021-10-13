@@ -12,3 +12,11 @@
     - Server Hosting - AWS EKS
     - Mobile App (Android, IOS) - Flutter
 
+    - for the file storage - aws s3
+
+    - nx 
+        - nest common setup / library 
+        - react common setup / library
+
+
+        
