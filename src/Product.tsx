@@ -8,8 +8,7 @@ import { ThemeContext, Theme, useTheme } from './context/AppThemeContext';
 
 export const Product = () => {
     const  { theme } = useTheme();
-    const lightCardClass = `product hover:bg-gray-100 hover:shadow-lg bg-white shadow-md p-3 rounded-xl border border-gray-100`;
-    const darkCardClass = `product text-white hover:bg-gray-600 hover:shadow-lg bg-gray-700 shadow-md p-3 rounded-xl border border-gray-100`;
+    const lightCardClass = `product hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-white hover:shadow-lg bg-white shadow-md p-3 rounded-xl border border-gray-100`;
 
     const [localTheme, setLocalTheme] = useState<Theme>(theme);
 
@@ -23,7 +22,8 @@ export const Product = () => {
     }, [theme]);
 
 
-    return <div className={localTheme === Theme.Light ? lightCardClass : darkCardClass}>
+    return <div className={localTheme === Theme.Light ? '' : 'dark'}>
+        <div className={lightCardClass}>
         <div className="flex">
             <div className="picture w-5/12">
                 <img src={bookImage} className="p-3 border border-gray-200" alt="Book" />
@@ -47,6 +47,7 @@ export const Product = () => {
                 </div>
             </div>
         </div>
+    </div>
     </div>
 }
 
