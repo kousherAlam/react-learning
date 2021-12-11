@@ -14,6 +14,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import { ProfilePage } from './pages/profile/ProfilePage';
 
 function App() {
   const baseStyle: CSSProperties = {
@@ -65,8 +66,9 @@ function App() {
           </div>
           <main className='container ml-auto mr-auto mt-20' style={baseStyle}>
             <Routes>
-              <Route path="/products" element={<ProductList />} />s
+              <Route path="/products" element={<ProductList />} />
               <Route path="/home" element={<HomePage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/" element={<Navigate to="/home" />}  />
             </Routes>
           </main>

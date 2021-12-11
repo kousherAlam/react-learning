@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import bookImage from '../../images/book1.jpg';
 import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormGroup } from '@mui/material';
-import { ThemeContext, Theme, useTheme } from '../../context/AppThemeContext';
+import { Theme, useTheme } from '../../context/AppThemeContext';
 
 
 export const Product = () => {
