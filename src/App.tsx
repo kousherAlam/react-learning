@@ -10,7 +10,8 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link
+  Link,
+  Navigate,
 } from "react-router-dom";
 
 function App() {
@@ -23,37 +24,53 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <ThemeContext.Provider value={{ theme, setTheme }}>
-        <div className="navbar fixed z-10 top-0 left-0 w-full p-3 bg-indigo-900 flex shadow-lg">
-          <div className="text-left w-2/12">
-            <h1 className="text-lg text-white font-bold">Test App</h1>
-          </div>
-          <div className="menus w-7/12">
-            <Search />
-          </div>
-          <div className="text-right w-3/12 px-3 grid grid-cols-2">
-            <div className="cart mr-2">
-              <Cart />
+    <Router>
+      <div className="app">
+        <ThemeContext.Provider value={{ theme, setTheme }}>
+          <div className="fixed z-10 top-0 left-0 w-full p-3 bg-indigo-900 shadow-lg">
+            <div className="container m-auto">
+              <div className="grid grid-cols-6 gap-2">
+                <div className="text-left">
+                  <h1 className="text-lg text-white font-bold">Test App</h1>
+                </div>
+                <div className="menus col-span-2">
+                  <Search />
+                </div>
+                <div className="menus col-span-2 text-right">
+                  <Link to="/">
+                    <button className='px-3 py-1 text-white hover:text-blue-300'>Home</button>
+                  </Link>
+                  <Link to="/products">
+                    <button className='px-3 py-1 text-white hover:text-blue-300'>Products</button>
+                  </Link>
+                  <Link to="/profile">
+                    <button className='px-3 py-1 text-white hover:text-blue-300'>Profile</button>
+                  </Link>
+                </div>
+                <div className="text-right px-3 grid grid-cols-2">
+                  <div className="cart mr-2">
+                    <Cart />
+                  </div>
+                  <div className="text-white text-right">
+                    <FormGroup>
+                      <FormControlLabel onChange={onThemeChanged} control={<Switch checked={theme === Theme.Light} />} label={theme} />
+                    </FormGroup>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="text-white text-right">
-              <FormGroup>
-                <FormControlLabel onChange={onThemeChanged} control={<Switch checked={theme === Theme.Light} />} label={theme} />
-              </FormGroup>
-            </div>
           </div>
-        </div>
-        <main className='container mt-20 p-3'>
-          <Router>
+          <main className='container ml-auto mr-auto mt-20'>
             <Routes>
-              <Route path="/product" element={<ProductList />} />
-              <Route path="/" element={<ProductList />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/home" element={<ProductList />} />
+              <Route path="/" element={<Navigate to="/home" />}  />
             </Routes>
-          </Router>
-        </main>
-      </ThemeContext.Provider>
-      <Footer></Footer>
-    </div>
+          </main>
+        </ThemeContext.Provider>
+        <Footer></Footer>
+      </div>
+    </Router>
   );
 }
 
