@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { Cart } from './Cart';
 import { Footer } from './Footer';
 import { ProductList } from './pages/product/ProductList';
+import { HomePage } from './pages/HomePage';
 import { Search } from './Search';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormGroup } from '@mui/material';
@@ -15,7 +16,9 @@ import {
 } from "react-router-dom";
 
 function App() {
-
+  const baseStyle: CSSProperties = {
+    minHeight: '85vh',
+  }
   const [theme, setTheme] = useState<Theme>(Theme.Light);
 
 
@@ -60,10 +63,10 @@ function App() {
               </div>
             </div>
           </div>
-          <main className='container ml-auto mr-auto mt-20'>
+          <main className='container ml-auto mr-auto mt-20' style={baseStyle}>
             <Routes>
-              <Route path="/products" element={<ProductList />} />
-              <Route path="/home" element={<ProductList />} />
+              <Route path="/products" element={<ProductList />} />s
+              <Route path="/home" element={<HomePage />} />
               <Route path="/" element={<Navigate to="/home" />}  />
             </Routes>
           </main>
