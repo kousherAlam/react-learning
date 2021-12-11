@@ -73,7 +73,9 @@ function App() {
             </Routes>
           </main>
         </ThemeContext.Provider>
-        <Footer></Footer>
+        <div className="mt-4">
+          <Footer></Footer>
+        </div>
       </div>
     </Router>
   );
