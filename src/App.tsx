@@ -1,16 +1,19 @@
-import React, { CSSProperties, useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Cart } from './Cart';
 import { Footer } from './Footer';
-import { ProductList } from './ProductList';
+import { ProductList } from './pages/product/ProductList';
 import { Search } from './Search';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel, FormGroup } from '@mui/material';
 import { Theme, ThemeContext } from './context';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link
+} from "react-router-dom";
 
 function App() {
-  const productListCSS: CSSProperties = {
-    minHeight: '79vh',
-  }
 
   const [theme, setTheme] = useState<Theme>(Theme.Light);
 
@@ -40,11 +43,16 @@ function App() {
             </div>
           </div>
         </div>
-        <div style={productListCSS} className="mt-20 p-3">
-          <ProductList />
-        </div>
-        <Footer></Footer>
+        <main className='container mt-20 p-3'>
+          <Router>
+            <Routes>
+              <Route path="/product" element={<ProductList />} />
+              <Route path="/" element={<ProductList />} />
+            </Routes>
+          </Router>
+        </main>
       </ThemeContext.Provider>
+      <Footer></Footer>
     </div>
   );
 }
